@@ -20,7 +20,7 @@ public class ResidentInfoUIController : MonoBehaviour
         residentInfoPanel.SetActive(true);
         nameText.text = $"Name: {resident.residentName}";
         moodText.text = $"Mood: {resident.mood}";
-        assetsText.text = $"Assets: {resident.assets}";
+        assetsText.text = $"Food: {resident.assets}";
     }
 
     private void ClosePanel()

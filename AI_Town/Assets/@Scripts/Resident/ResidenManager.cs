@@ -126,7 +126,7 @@ public class ResidentManager : MonoBehaviour
 
     private async Task<Resident> GenerateRandomResident(Vector3 position)
     {
-        string prompt = "Create a random villager with 1. a unique Korean name, 2. mood(50% : normal, 10% : angry, 20% : noemotion, 10% : sad, 10% : happy), 3. assets. Format it as: Name: [한글 이름], Mood: [mood], Assets: [number].";
+        string prompt = "Create a random villager with 1. a unique Korean name, 2. mood(50% : normal, 10% : angry, 20% : noemotion, 10% : sad, 10% : happy), 3. Food. Format it as: Name: [한글 이름], Mood: [mood], Food: [number].";
         string apiResponse = await OpenAIAPIHelper.GetGpt4oMiniResponseAsync(prompt);
 
         Resident newResident = ParseResidentFromAPI(apiResponse, position);
@@ -140,7 +140,7 @@ public class ResidentManager : MonoBehaviour
         // 정규 표현식을 사용하여 Name, Mood, Assets 추출
         string namePattern = @"Name:\s*(.+?),";
         string moodPattern = @"Mood:\s*(.+?),";
-        string assetsPattern = @"Assets:\s*(\d+)";
+        string assetsPattern = @"Food:\s*(\d+)";
 
         string name = Regex.Match(apiResponse, namePattern).Groups[1].Value.Trim();
         string mood = Regex.Match(apiResponse, moodPattern).Groups[1].Value.Trim();

@@ -41,7 +41,7 @@ public class ResidentObjectController : MonoBehaviour
         // 텍스트 업데이트
         nameText.text = resident.residentName;
         moodText.text = $"Mood: {resident.mood}";
-        assetsText.text = $"Assets: {resident.assets}";
+        assetsText.text = $"Food: {resident.assets}";
 
         // 기분에 따른 표정 업데이트
         UpdateMoodSprite(resident.mood);

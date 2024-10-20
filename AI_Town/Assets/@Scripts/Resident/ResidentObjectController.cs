@@ -4,13 +4,14 @@ using System.Collections.Generic;
 
 public class ResidentObjectController : MonoBehaviour
 {
+
     public TMP_Text nameText;
     public TMP_Text moodText;
     public TMP_Text assetsText;
     public SpriteRenderer moodSprite; // SpriteRenderer로 유지
 
     // 표정 스프라이트를 저장할 Dictionary
-    private Dictionary<string, Sprite> emotionSprites = new Dictionary<string, Sprite>();
+    public Dictionary<string, Sprite> emotionSprites;
 
     public Sprite BaseMode;
 
@@ -20,6 +21,7 @@ public class ResidentObjectController : MonoBehaviour
     public void Initialize(Resident residentData)
     {
         resident = residentData;
+        emotionSprites = ResidentManager.emotionSprites;
         UpdateResidentInfo();
     }
 
@@ -49,14 +51,18 @@ public class ResidentObjectController : MonoBehaviour
     private void UpdateMoodSprite(string mood)
     {
         string moodKey = mood.ToLower();
+        Debug.Log("Mood ? : " + moodKey);
         if (emotionSprites.ContainsKey(moodKey))
         {
             moodSprite.sprite = emotionSprites[moodKey];
+            Debug.Log("Check Key Yes");
         }
         else
         {
-            moodSprite.sprite = BaseMode; // 기본 표정
+            //moodSprite.sprite = BaseMode; // 기본 표정
+            moodSprite.sprite = emotionSprites["sad"];
 
+            Debug.Log("Check Key No");
         }
 
         Debug.Log($"Set mood sprite to: {moodKey}");

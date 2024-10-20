@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class Resident
 {
+    public int RID { get; set; }
+
     public string residentName;
     public string mood;
     public int assets;

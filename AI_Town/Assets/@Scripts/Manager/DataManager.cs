@@ -17,7 +17,7 @@ public static class DataManager
 
         foreach (var resident in residents)
         {
-            string filePath = Path.Combine(dataPath, $"{resident.residentName}.json");
+            string filePath = Path.Combine(dataPath, $"{resident.RID}.json");
             string jsonData = JsonConvert.SerializeObject(resident);
             File.WriteAllText(filePath, jsonData);
         }

@@ -11,6 +11,8 @@ public class ResidentManager : MonoBehaviour
 
 
     private HashSet<string> existingNames = new HashSet<string>(); // 기존 이름 저장용
+    private HashSet<int> usedRIDs = new HashSet<int>(); // 사용된 RID 저장용
+    private const int startingRID = 10000;
 
 
     // Sprite 리스트 (Unity Editor에서 할당)
@@ -20,17 +22,26 @@ public class ResidentManager : MonoBehaviour
     public Sprite normalSprite;
     public Sprite sadSprite;
 
-    public List<Sprite> EmotionSprites = new List<Sprite>();
+    public static Dictionary<string, Sprite> emotionSprites = new Dictionary<string, Sprite>();
+
 
     private void Start()
     {
+
+        //** 초기화 **//
         //DataManager.ClearAllResidentData();
+
+
+        SetEmotionSprites();
+
 
         // 저장된 주민 데이터를 불러오고, 각각 화면에 표시
         Resident[] savedResidents = DataManager.LoadAllResidents();
         foreach (Resident savedResident in savedResidents)
         {
             existingNames.Add(savedResident.residentName); // 기존 주민 이름을 저장
+            usedRIDs.Add(savedResident.RID); // 저장된 Resident의 RID를 사용 목록에 추가
+
             ShowSavedResident(savedResident);
         }
     }
@@ -44,18 +55,22 @@ public class ResidentManager : MonoBehaviour
 
         // Resident 데이터 초기화
         controller.Initialize(residentData);
-
-        // 기본 표정 스프라이트 설정
-        controller.AddEmotionSprite("angry", angrySprite);
-        controller.AddEmotionSprite("happy", happySprite);
-        controller.AddEmotionSprite("noemotion", noEmotionSprite);
-        controller.AddEmotionSprite("normal", normalSprite);
-        controller.AddEmotionSprite("sad", sadSprite);
+        controller.emotionSprites = emotionSprites;
 
         activeResidents.Add(controller);
     }
 
 
+
+    private void SetEmotionSprites()
+    {
+        emotionSprites.Add("angry", angrySprite);
+        emotionSprites.Add("happy", happySprite);
+        emotionSprites.Add("noemotion", noEmotionSprite);
+        emotionSprites.Add("normal", normalSprite);
+        emotionSprites.Add("sad", sadSprite);
+
+    }
 
     public async Task GenerateAndShowResidents()
     {
@@ -77,16 +92,11 @@ public class ResidentManager : MonoBehaviour
 
         // Resident 데이터 초기화
         controller.Initialize(newResident);
-
-        // 기본 표정 스프라이트 설정
-        controller.AddEmotionSprite("angry", angrySprite);
-        controller.AddEmotionSprite("happy", happySprite);
-        controller.AddEmotionSprite("noemotion", noEmotionSprite);
-        controller.AddEmotionSprite("normal", normalSprite);
-        controller.AddEmotionSprite("sad", sadSprite);
+        controller.emotionSprites = emotionSprites;
 
         activeResidents.Add(controller);
         existingNames.Add(newResident.residentName); // 이름을 추가
+        usedRIDs.Add(newResident.RID); // 새로운 Resident의 RID 저장
     }
 
     private async Task<Resident> GenerateUniqueResident(Vector3 position)
@@ -97,12 +107,26 @@ public class ResidentManager : MonoBehaviour
             newResident = await GenerateRandomResident(position);
         } while (existingNames.Contains(newResident.residentName)); // 중복 검사
 
+        newResident.RID = GenerateUniqueRID(); // 중복되지 않는 RID 할당
         return newResident;
+    }
+
+    private int GenerateUniqueRID()
+    {
+        int rid = startingRID;
+
+        // 사용되지 않은 RID 찾기
+        while (usedRIDs.Contains(rid))
+        {
+            rid++;
+        }
+
+        return rid;
     }
 
     private async Task<Resident> GenerateRandomResident(Vector3 position)
     {
-        string prompt = "Create a random villager with a Korean unique name, mood(normal, angry, noemotion, sad, happy), and assets. Format it as: Name: [한글 이름], Mood: [mood], Assets: [number].";
+        string prompt = "Create a random villager with 1. a unique Korean name, 2. mood(50% : normal, 10% : angry, 20% : noemotion, 10% : sad, 10% : happy), 3. assets. Format it as: Name: [한글 이름], Mood: [mood], Assets: [number].";
         string apiResponse = await OpenAIAPIHelper.GetGpt4oMiniResponseAsync(prompt);
 
         Resident newResident = ParseResidentFromAPI(apiResponse, position);

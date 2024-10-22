@@ -45,7 +45,7 @@ public class GodWordUIController : MonoBehaviour
         foreach (var resident in residents)
         {
             //await resident.DecideNextActionAsync();
-            //await resident.ReactToGodWordAsync(godWord);
+            await resident.ReactToGodWordAsync(godWord);
         }
 
         feedbackText.text = "God's word has been delivered.";

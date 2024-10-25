@@ -26,6 +26,12 @@ public class ResidentManager : MonoBehaviour
     public static Dictionary<string, Sprite> emotionSprites = new Dictionary<string, Sprite>();
 
 
+
+    //Location List : 1. 광장 2. 투표실 3. 대화실 4. 대기실
+
+    //행동 List : 1. 악행 2. 선행
+
+
     private void Start()
     {
 

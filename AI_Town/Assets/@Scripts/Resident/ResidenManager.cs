@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class ResidentManager : MonoBehaviour
 {
@@ -23,6 +24,12 @@ public class ResidentManager : MonoBehaviour
     public Sprite sadSprite;
 
     public static Dictionary<string, Sprite> emotionSprites = new Dictionary<string, Sprite>();
+
+
+
+    //Location List : 1. 광장 2. 투표실 3. 대화실 4. 대기실
+
+    //행동 List : 1. 악행 2. 선행
 
 
     private void Start()
@@ -186,4 +193,21 @@ public class ResidentManager : MonoBehaviour
         DataManager.SaveAllResidents(residents);
     }
 
+
+
+    public bool MoveToLocation()
+    {
+
+        //1. 이동할 오브젝트, 이동할 위치
+        //2. 이동 성공시 TRUE 리턴
+        return true;
+    }
+
+    public Vector2 GetResidentLocation(Vector2 position)
+    {
+        //1. 가져올 오브젝트, 
+        //2. 위치 반환
+
+        return position;
+    }
 }

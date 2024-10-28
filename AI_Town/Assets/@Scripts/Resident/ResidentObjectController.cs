@@ -49,6 +49,11 @@ public class ResidentObjectController : MonoBehaviour
         UpdateMoodSprite(resident.mood);
     }
 
+    private void UpdateAsseets(int mount)
+    {
+        resident.assets += mount;
+    }
+
     // 기분에 따른 스프라이트 업데이트
     private void UpdateMoodSprite(string mood)
     {

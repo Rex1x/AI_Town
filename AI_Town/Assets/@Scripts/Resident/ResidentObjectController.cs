@@ -8,6 +8,7 @@ public class ResidentObjectController : MonoBehaviour
     public TMP_Text nameText;
     public TMP_Text moodText;
     public TMP_Text assetsText;
+    public TMP_Text hungryText;
     public SpriteRenderer moodSprite; // SpriteRenderer로 유지
 
     // 표정 스프라이트를 저장할 Dictionary
@@ -41,6 +42,7 @@ public class ResidentObjectController : MonoBehaviour
         // 텍스트 업데이트
         nameText.text = resident.residentName;
         moodText.text = $"Mood: {resident.mood}";
+        hungryText.text = $"Hungry: {resident.hungry}";
         assetsText.text = $"Food: {resident.assets}";
 
         // 기분에 따른 표정 업데이트

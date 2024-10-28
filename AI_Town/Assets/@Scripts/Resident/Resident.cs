@@ -7,7 +7,8 @@ public class Resident
 
     public string residentName;
     public string mood;
-    public int assets;
+    public float assets;
+    public float hungry;
     public SerializableVector3 position; // 위치 정보 추가
 
 
@@ -16,11 +17,12 @@ public class Resident
 
 
 
-    public Resident(string name, string mood, int assets, Vector3 position)
+    public Resident(string name, string mood, float assets, float hungry, Vector3 position)
     {
         this.residentName = name;
         this.mood = mood;
         this.assets = assets;
+        this.hungry = hungry;
         this.position = new SerializableVector3(position);
     }
 

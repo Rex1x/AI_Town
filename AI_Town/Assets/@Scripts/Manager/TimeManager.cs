@@ -5,7 +5,7 @@ public class TimeManager : MonoBehaviour
 {
     public enum TimeOfDay { Morning, Afternoon, Evening }
     public TimeOfDay currentTime;
-    public float realTimeMinutesPerDay = 10.0f; // 현실 시간 10분을 하루로 설정
+    public float realTimeMinutesPerDay = 1.0f; // 현실 시간 10분을 하루로 설정
 
     private float elapsedTime;
     private List<Resident> residents = new List<Resident>();
@@ -24,16 +24,16 @@ public class TimeManager : MonoBehaviour
 
     public void Update()
     {
-        elapsedTime += Time.deltaTime;
+        //elapsedTime += Time.deltaTime;
 
-        // 하루의 시간대 계산
-        float timePerPeriod = (realTimeMinutesPerDay * 60f) / 3; // 아침, 점심, 저녁 3번의 변화
+        //// 하루의 시간대 계산
+        //float timePerPeriod = (realTimeMinutesPerDay * 60f) / 3; // 아침, 점심, 저녁 3번의 변화
 
-        if (elapsedTime > timePerPeriod)
-        {
-            MoveToNextTimePeriod();
-            elapsedTime = 0f;
-        }
+        //if (elapsedTime > timePerPeriod)
+        //{
+        //    MoveToNextTimePeriod();
+        //    elapsedTime = 0f;
+        //}
     }
 
     public void MoveToNextTimePeriod()

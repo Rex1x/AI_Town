@@ -74,9 +74,9 @@ public class ResidentManager : MonoBehaviour
 
     public async Task GenerateAndShowResidents()
     {
-        if (activeResidents.Count >= 5)
+        if (activeResidents.Count >= 16)
         {
-            Debug.Log("Maximum of 5 residents reached.");
+            Debug.Log("Maximum of 16 residents reached.");
             return;
         }
 
@@ -142,11 +142,12 @@ public class ResidentManager : MonoBehaviour
         string moodPattern = @"Mood:\s*(.+?),";
         string assetsPattern = @"Food:\s*(\d+)";
 
+
         string name = Regex.Match(apiResponse, namePattern).Groups[1].Value.Trim();
         string mood = Regex.Match(apiResponse, moodPattern).Groups[1].Value.Trim();
-        int assets = int.Parse(Regex.Match(apiResponse, assetsPattern).Groups[1].Value.Trim());
+        float assets = int.Parse(Regex.Match(apiResponse, assetsPattern).Groups[1].Value.Trim());
 
-        return new Resident(name, mood, assets, position);
+        return new Resident(name, mood, assets, 0, position);
     }
 
     // 활성화된 Resident 오브젝트의 데이터를 반환

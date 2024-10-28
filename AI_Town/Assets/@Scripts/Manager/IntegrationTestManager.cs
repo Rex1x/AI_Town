@@ -23,9 +23,10 @@ public class IntegrationTestManager : MonoBehaviour
     }
 
     // 새로운 Resident 생성 테스트
-    private async void GenerateNewResident()
+    private void GenerateNewResident()
     {
-        await residentManager.GenerateAndShowResidents();
+        //await residentManager.GenerateAndShowResidents();
+        residentManager.GenerateRandomResident();
         Debug.Log("New resident generated.");
     }
 

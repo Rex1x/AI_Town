@@ -67,6 +67,7 @@ MonoBehaviour:
   nameText: {fileID: 8395241485702160549}
   moodText: {fileID: 3244784184466820920}
   assetsText: {fileID: 601618286169358674}
+  hungryText: {fileID: 5704446413427019439}
   moodSprite: {fileID: 8822034150203002738}
   BaseMode: {fileID: 21300000, guid: 5ec462cea34944d07bd7ead0fcc1788c, type: 3}
 --- !u!1 &2829051448402709220

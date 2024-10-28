@@ -8,6 +8,10 @@ public class GodWordUIController : MonoBehaviour
     public Button submitButton;
     public TMP_Text feedbackText; // TextMeshPro Text
 
+    public GameObject GodwordCanvas;
+
+    public Button closeButton;
+    public bool isClose = false;
 
     public TMP_Text timePeriodText;
     public TMP_Text dayCounterText;
@@ -19,7 +23,24 @@ public class GodWordUIController : MonoBehaviour
     private void Start()
     {
         submitButton.onClick.AddListener(OnSubmitGodWord);
+        closeButton.onClick.AddListener(OnClickOpenAndCloseBtn);
+
         TimeManager.OnTimePeriodChanged += UpdateTimePeriodUI;
+    }
+
+    public void OnClickOpenAndCloseBtn()
+    {
+        if (isClose) {
+            GodwordCanvas.SetActive(true);
+            closeButton.GetComponentInChildren<TMP_Text>().text = "x";
+            isClose = false;
+        }
+        else
+        {
+            GodwordCanvas.SetActive(false);
+            closeButton.GetComponentInChildren<TMP_Text>().text = "Show";
+            isClose = true;
+        }
     }
 
     public async void OnSubmitGodWord()

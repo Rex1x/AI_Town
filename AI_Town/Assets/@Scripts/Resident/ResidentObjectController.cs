@@ -18,13 +18,24 @@ public class ResidentObjectController : MonoBehaviour
 
     private Resident resident;
 
+
+    private CameraController cameraController;
+
     // Resident 데이터를 기반으로 오브젝트 초기화
     public void Initialize(Resident residentData)
     {
         resident = residentData;
         emotionSprites = ResidentManager.emotionSprites;
+        moodSprite.color = resident.color;
         UpdateResidentInfo();
     }
+
+    private void Start()
+    {
+        // CameraController를 찾아서 참조
+        cameraController = FindObjectOfType<CameraController>();
+    }
+
 
     // 표정 스프라이트 추가 메서드
     public void AddEmotionSprite(string emotionName, Sprite sprite)
@@ -90,4 +101,15 @@ public class ResidentObjectController : MonoBehaviour
         resident.position = new SerializableVector3(transform.position);
         return resident;
     }
+
+
+    private void OnMouseDown()
+    {
+        // Resident 클릭 시 카메라 이동
+        if (cameraController != null)
+        {
+            cameraController.CenterOnResident(transform);
+        }
+    }
+
 }

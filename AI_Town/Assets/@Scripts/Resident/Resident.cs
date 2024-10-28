@@ -7,8 +7,14 @@ public class Resident
 
     public string residentName;
     public string mood;
-    public float assets;
-    public float hungry;
+    public int assets;
+    public int hungry = 0;
+
+    public string personality; // 성격 설명
+    public string identity; // 정체성 설명
+    public Color color; // Resident의 색상
+
+
     public SerializableVector3 position; // 위치 정보 추가
 
 
@@ -17,12 +23,16 @@ public class Resident
 
 
 
-    public Resident(string name, string mood, float assets, float hungry, Vector3 position)
+    public Resident(string name, string mood, int assets, int hungry, string personality, string identity, string hexColor, Vector3 position)
     {
         this.residentName = name;
         this.mood = mood;
         this.assets = assets;
         this.hungry = hungry;
+
+        this.personality = personality;
+        this.identity = identity;
+        ColorUtility.TryParseHtmlString(hexColor, out color);
         this.position = new SerializableVector3(position);
     }
 
